@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.nk.vr.model.dto.CartaoResponse;
+import br.com.nk.vr.model.dto.TransacaoResponse;
+
 @RestController
 public class CartaoController {
 
@@ -12,8 +15,9 @@ public class CartaoController {
 	//	 * a obtenção de saldo do cartão
 	//	 * a autorização de transações realizadas usando os cartões previamente criados como meio de pagamento
 	@PostMapping("/cartoes")
-	public String criarCartao() {
-		return "";
+	public CartaoResponse criarCartao() {
+		CartaoResponse result = new CartaoResponse();
+		return result;
 	}
 
 	@PutMapping("/{numeroCartao}")
@@ -27,7 +31,8 @@ public class CartaoController {
 	}
 	
 	@PostMapping("/transacoes")
-	public String transacoes() {
- 		return "";
+	public TransacaoResponse transacoes() {
+		TransacaoResponse result = new TransacaoResponse();
+ 		return result;
 	}
 }

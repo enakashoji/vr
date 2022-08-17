@@ -1,6 +1,7 @@
 package br.com.nk.vr.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class Cartao {
 	}
 	
 	public void atualizarSaldo(BigDecimal valor) {
-		this.saldo = saldo.subtract(valor);
+		this.saldo = saldo.subtract(valor).setScale(2, RoundingMode.HALF_UP);
 	}
 		
 	public String getNumeroCartao() {

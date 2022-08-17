@@ -15,17 +15,18 @@ public class CartaoService {
 	@Autowired
 	private CartaoRepository repository;
 
-	public boolean cartaoExiste(String numeroCartao) {
-		Optional<Cartao> optionalCartao = repository.findById(numeroCartao);
-		return false;
-	}
+//	public boolean cartaoExiste(String numeroCartao) {
+//		Optional<Cartao> optionalCartao = repository.findById(numeroCartao);
+//		System.out.println(optionalCartao);
+//		return optionalCartao.isPresent();
+//	}
 
-	public void sacar(Cartao cartao, BigDecimal valor) {
+	public void registrarOperacao(Cartao cartao, BigDecimal valor) {
 		cartao.atualizarSaldo(valor);
-		repository.save(cartao);
+//		repository.save(cartao);
 	}
 
-	private void validaSenha(String numeroCartao, String senha) {
+	private void autenticar(String numeroCartao, String senha) {
 		// TODO Auto-generated method stub
 		
 	}
