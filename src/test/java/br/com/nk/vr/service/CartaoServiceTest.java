@@ -1,8 +1,10 @@
 package br.com.nk.vr.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +24,6 @@ public class CartaoServiceTest {
 	@Mock
 	private CartaoRepository repository;
 
-//	@InjectMocks
 	private CartaoService service;
 
 	@BeforeEach
@@ -42,16 +43,21 @@ public class CartaoServiceTest {
 
 	@Test
 	public void deveValidarSeOCartaoExiste() {
-//		assertTrue(service.cartaoExiste(FactoryMock.criarCartaoSucesso()));
+		assertTrue(service.cartaoExiste(FactoryMock.criarCartaoDtoSucesso().getNumeroCartao()));
 	}
 
 	@Test
 	public void deveValidarASenha() {
-
+		assertTrue(service.validaSenha(FactoryMock.criarCartaoDtoSucesso()));
 	}
 
 	@Test
-	public void deveValidarOSaldo() {
-
+	public void deveExibirOSaldo() {
+		assertEquals(service.consultarSaldo(FactoryMock.criarCartaoDtoSucesso().getNumeroCartao()), new BigDecimal(500).setScale(2));
+	}
+	
+	@Test
+	public void deveAtualizarOSaldo() {
+		
 	}
 }

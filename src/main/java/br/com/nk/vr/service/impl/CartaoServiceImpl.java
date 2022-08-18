@@ -29,13 +29,22 @@ public class CartaoServiceImpl implements CartaoService {
 		return optionalCartao.isPresent();
 	}
 
-	public void registrarOperacao(Cartao cartao, BigDecimal valor) {
-		cartao.atualizarSaldo(valor);
-//		repository.save(cartao);
+	public void registrarOperacao(CartaoDto dto, BigDecimal valor) {
+		repository.findById(dto.getNumeroCartao()).ifPresent(cartao -> {
+			cartao.atualizarSaldo(valor);
+			repository.save(cartao);			
+		});
 	}
 
-	public void autenticar(String numeroCartao, String senha) {
-		// TODO Auto-generated method stub
+	public boolean validaSenha(CartaoDto cartaoDto) {
+		Optional<Cartao> cartao = repository.findById(cartaoDto.getNumeroCartao());
+		return cartao.get().getNumeroCartao().equals(cartaoDto.getNumeroCartao());
 
 	}
+
+	public BigDecimal consultarSaldo(String numeroCartao) {
+		Optional<Cartao> cartao = this.repository.findById(numeroCartao);
+		return cartao.get().getSaldo();
+	}
+
 }
