@@ -1,6 +1,7 @@
 package br.com.nk.vr.service.utils;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import br.com.nk.vr.model.Cartao;
 import br.com.nk.vr.model.dto.CartaoDto;
@@ -19,7 +20,12 @@ public class FactoryMock {
 	}
 	
 	public static TransacaoDto transacaoDtoSucesso() {
-		return new TransacaoDto(CARTAO_SUCESSO, SENHA_SUCESSO, new BigDecimal(10.00));
+		return new TransacaoDto(CARTAO_SUCESSO, SENHA_SUCESSO, new BigDecimal(10));
 	}
+	
+	public static Optional<Cartao> optionalCartaoSucesso() {
+		return Optional.of(new Cartao(CARTAO_SUCESSO, SENHA_SUCESSO));
+	}
+
 }
 

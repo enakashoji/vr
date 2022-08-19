@@ -3,6 +3,9 @@ package br.com.nk.vr.service.impl;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.nk.vr.model.Cartao;
@@ -11,8 +14,10 @@ import br.com.nk.vr.repository.CartaoRepository;
 import br.com.nk.vr.service.CartaoService;
 
 @Service
+@Transactional
 public class CartaoServiceImpl implements CartaoService {
 
+	@Autowired
 	private CartaoRepository repository;
 
 	public CartaoDto criarCartao(CartaoDto cartaoDto) {

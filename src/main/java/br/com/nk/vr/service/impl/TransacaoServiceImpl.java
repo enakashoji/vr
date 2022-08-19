@@ -2,6 +2,8 @@ package br.com.nk.vr.service.impl;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import br.com.nk.vr.repository.CartaoRepository;
 import br.com.nk.vr.service.TransacaoService;
 
 @Service
+@Transactional
 public class TransacaoServiceImpl implements TransacaoService{
 	
 	@Autowired
@@ -29,19 +32,25 @@ public class TransacaoServiceImpl implements TransacaoService{
 	@Override
 	public boolean saldoInsuficiente(TransacaoDto transacaoDto) {
 		Optional<Cartao> cartao = cartaoRepository.findById(transacaoDto.getNumeroCartao());
-		return (cartao.get().getSaldo().compareTo(transacaoDto.getValor()) == 1);
+		if (cartao.isPresent()) {
+			return (cartao.get().getSaldo().compareTo(transacaoDto.getValor()) == -1);
+		}
+		return false;
 	}
 
 	@Override
 	public boolean senhaInvalida(TransacaoDto transacaoDto) {
 		Optional<Cartao> cartao = cartaoRepository.findById(transacaoDto.getNumeroCartao());
-		return (cartao.get().getSenha().equals(transacaoDto.getSenhaCartao()));
+		if (cartao.isPresent()) {
+			return (cartao.get().getSenha().compareTo(transacaoDto.getSenhaCartao()) != 0);			
+		}
+		return false;
 	}
 
 	@Override
 	public boolean cartaoInexistente(TransacaoDto transacaoDto) {
 		Optional<Cartao> cartao = cartaoRepository.findById(transacaoDto.getNumeroCartao());
-		return cartao.isPresent();
+		return cartao.isEmpty();
 	}
 
 }

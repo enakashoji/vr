@@ -1,8 +1,10 @@
 package br.com.nk.vr.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nk.vr.model.Transacao;
@@ -12,14 +14,11 @@ import br.com.nk.vr.service.TransacaoService;
 @RestController
 public class TransacaoController {
 	
+	@Autowired
 	private TransacaoService service;
 	
-	public TransacaoController(TransacaoService service) {
-		this.service = service;
-	}
-
 	@PostMapping(value = "/transacoes")
-	public ResponseEntity<String> transacoes(TransacaoDto transacaoDto) {
+	public ResponseEntity<String> transacoes(@RequestBody TransacaoDto transacaoDto) {
 		if (service.senhaInvalida(transacaoDto)) {
 			return new ResponseEntity<String>(Transacao.SENHA_INVALIDA.name(), HttpStatus.UNPROCESSABLE_ENTITY);
 		}
